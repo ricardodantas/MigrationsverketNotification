@@ -3,7 +3,7 @@ import { StyleSheet, AsyncStorage, ActivityIndicator, Image, Text, View, ScrollV
 import DeviceInfo from 'react-native-device-info';
 import ApplicationForm from './components/ApplicationForm';
 import ApplicationInfo from './components/ApplicationInfo';
-import { requestApplicationInfo } from './functions/requestApplicationInfo';
+// import { requestApplicationInfo } from './functions/requestApplicationInfo';
 import AppSettings from './settings';
 
 import firebase from 'react-native-firebase';
@@ -27,7 +27,16 @@ export default class App extends React.Component {
     if (applicationInfo) {
       const parsedJson = JSON.parse(applicationInfo);
       this.setState({ applicationInfo: parsedJson, showLoading: true });
-      const updatedApplicationInfo = await requestApplicationInfo({ type: parsedJson.type, number: parsedJson.number, deviceUniqueId: this.state.deviceUniqueId });
+      const response = await fetch(
+        `${AppSettings.restApiBaseUrl}/application-status?number=${parsedJson.number}&type=${parsedJson.type}&deviceUniqueId=${this.state.deviceUniqueId}`,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      const updatedApplicationInfo = await response.json();
       this.setState({ applicationInfo: updatedApplicationInfo, showLoading: false});
     }
   };
@@ -41,6 +50,7 @@ export default class App extends React.Component {
         user: userInfo,
         deviceUniqueId: this.state.deviceUniqueId
       });
+      // await AsyncStorage.clear();
       await this.loadApplicationInfo();
     } catch (error) {
       console.error(error);

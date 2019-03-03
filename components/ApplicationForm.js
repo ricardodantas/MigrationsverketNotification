@@ -3,9 +3,6 @@ import { AsyncStorage, StyleSheet, ActivityIndicator, View, Button } from 'react
 
 import Dialog from "./Dialog";
 import AppSettings from '../settings';
-import { requestApplicationInfo } from '../functions/requestApplicationInfo';
-
-// import firebase from 'react-native-firebase';
 
 import t from 'tcomb-form-native';
 
@@ -64,7 +61,16 @@ export default class ApplicationForm extends React.Component {
 
   loadApplicationInfo = async ({ type, number, deviceUniqueId }) => {
     try {
-      await requestApplicationInfo({ type, number, deviceUniqueId });
+      const response = await fetch(
+        `${AppSettings.restApiBaseUrl}/application-status?number=${number}&type=${type}&deviceUniqueId=${deviceUniqueId}`,
+        {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          }
+        }
+      );
+      return await response.json();
     } catch (error) {
       console.error(error);
     }
@@ -77,7 +83,6 @@ export default class ApplicationForm extends React.Component {
       const formData = { ...formValue, deviceUniqueId };
       this.setState({ isLoading: true });
       const result = await this.loadApplicationInfo(formData);
-
       if (result.type && result.number) {
         await AsyncStorage.setItem('application', JSON.stringify(result));
         this.setState({ applicationInfo: result });
