@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, AsyncStorage, ActivityIndicator, Image, Text, View, ScrollView } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
-
-// import PreInstalledModules from './components/PreInstalledModules';
 import ApplicationForm from './components/ApplicationForm';
 import ApplicationInfo from './components/ApplicationInfo';
+import { requestApplicationInfo } from './functions/requestApplicationInfo';
 import AppSettings from './settings';
 
 import firebase from 'react-native-firebase';
@@ -13,13 +12,27 @@ export default class App extends React.Component {
   constructor() {
     super();
     const deviceUniqueId = DeviceInfo.getUniqueID();
+
+    this.shouldShowApplicationInfo = this.shouldShowApplicationInfo.bind(this);
+
     this.state = {
-      deviceUniqueId
+      deviceUniqueId,
+      showLoading: false,
+      applicationInfo: null
     };
   }
 
+  loadApplicationInfo = async () => {
+    const applicationInfo = await AsyncStorage.getItem('application');
+    if (applicationInfo) {
+      const parsedJson = JSON.parse(applicationInfo);
+      this.setState({ applicationInfo: parsedJson, showLoading: true });
+      const updatedApplicationInfo = await requestApplicationInfo({ type: parsedJson.type, number: parsedJson.number, deviceUniqueId: this.state.deviceUniqueId });
+      this.setState({ applicationInfo: updatedApplicationInfo, showLoading: false});
+    }
+  };
+
   async componentDidMount() {
-    // TODO: You: Do firebase things
     try {
 
       const { user } = await firebase.auth().signInAnonymously();
@@ -28,11 +41,17 @@ export default class App extends React.Component {
         user: userInfo,
         deviceUniqueId: this.state.deviceUniqueId
       });
-
+      await this.loadApplicationInfo();
     } catch (error) {
       console.error(error);
     }
 
+  }
+
+  async shouldShowApplicationInfo(shouldShow) {
+    if (shouldShow) {
+      await this.loadApplicationInfo();
+    }
   }
 
   render() {
@@ -60,8 +79,11 @@ export default class App extends React.Component {
           )}
           */}
           { /* <PreInstalledModules /> */}
-          <ApplicationForm deviceUniqueId={this.state.deviceUniqueId} />
-          {/* <ApplicationInfo status={} description={} number={}/> */}
+          {this.state.showLoading ? <View style={styles.loading}><ActivityIndicator size="large" color={AppSettings.mainFontColor} /></View> : null}
+          {this.state.applicationInfo === null ?
+            <ApplicationForm deviceUniqueId={this.state.deviceUniqueId} shouldShowApplicationInfo={this.shouldShowApplicationInfo} /> :
+            <ApplicationInfo {...this.state.applicationInfo} />
+        }
         </View>
       </ScrollView>
     );
@@ -69,6 +91,9 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  loading: {
+    marginBottom: 30
+  },
   scrollView: {
     backgroundColor: AppSettings.mainColor,
   },

@@ -1,12 +1,12 @@
 import React from 'react';
-import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
-import AppSettings from '../settings';
+import { StyleSheet, View, Text, AsyncStorage} from 'react-native';
 
+import AppSettings from '../settings';
 
 export default class ApplicationInfo extends React.Component {
   constructor() {
     super();
-    this.state = { show: false };
+    this.state = { };
   }
 
   render() {
@@ -28,12 +28,21 @@ const styles = StyleSheet.create({
     color: AppSettings.mainFontColorInverted
   },
   number: {
-
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: AppSettings.mainFontColorInverted
   },
   status: {
-
+    fontSize: 20,
+    textAlign: 'center',
+    marginBottom: 30,
+    marginTop: 30,
+    color: AppSettings.mainFontColorInverted
   },
   description: {
-
+    fontSize: 15,
+    lineHeight: 25,
+    textAlign: 'justify'
   }
 });

@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, ActivityIndicator, View, Button } from 'react-native';
-import Dialog from "./Dialog";
+import { AsyncStorage, StyleSheet, ActivityIndicator, View, Button } from 'react-native';
 
+import Dialog from "./Dialog";
 import AppSettings from '../settings';
+import { requestApplicationInfo } from '../functions/requestApplicationInfo';
 
 // import firebase from 'react-native-firebase';
 
@@ -39,6 +40,7 @@ const Application = t.struct({
 
 
 export default class ApplicationForm extends React.Component {
+
   constructor() {
     super();
     this.state = {
@@ -62,16 +64,7 @@ export default class ApplicationForm extends React.Component {
 
   loadApplicationInfo = async ({ type, number, deviceUniqueId }) => {
     try {
-      const response = await fetch(
-        `${AppSettings.restApiBaseUrl}/application-status?number=${number}&type=${type}&deviceUniqueId=${deviceUniqueId}`,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          }
-        }
-      );
-      return await response.json();
+      await requestApplicationInfo({ type, number, deviceUniqueId });
     } catch (error) {
       console.error(error);
     }
@@ -86,7 +79,9 @@ export default class ApplicationForm extends React.Component {
       const result = await this.loadApplicationInfo(formData);
 
       if (result.type && result.number) {
+        await AsyncStorage.setItem('application', JSON.stringify(result));
         this.setState({ applicationInfo: result });
+        await this.props.shouldShowApplicationInfo(true);
       } else {
         this.setState({
           dialogInfo: {
