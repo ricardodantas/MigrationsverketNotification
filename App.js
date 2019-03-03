@@ -2,8 +2,10 @@ import React from 'react';
 import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
-import PreInstalledModules from './components/PreInstalledModules';
+// import PreInstalledModules from './components/PreInstalledModules';
 import ApplicationForm from './components/ApplicationForm';
+import ApplicationInfo from './components/ApplicationInfo';
+import AppSettings from './settings';
 
 import firebase from 'react-native-firebase';
 
@@ -35,9 +37,9 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
-          {<Image source={require('./assets/ReactNativeFirebase.png')} style={[styles.logo]}/>}
+          {<Image source={require('./assets/logo.png')} style={[styles.logo]}/>}
           <Text style={styles.welcome}>
             Welcome to {'\n'} Migrationsverket Notification
           </Text>
@@ -58,7 +60,8 @@ export default class App extends React.Component {
           )}
           */}
           { /* <PreInstalledModules /> */}
-          <ApplicationForm deviceUniqueId={this.state.deviceUniqueId}/>
+          <ApplicationForm deviceUniqueId={this.state.deviceUniqueId} />
+          {/* <ApplicationInfo status={} description={} number={}/> */}
         </View>
       </ScrollView>
     );
@@ -66,6 +69,9 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    backgroundColor: AppSettings.mainColor,
+  },
   container: {
     padding: 15,
     flex: 1,
@@ -75,19 +81,22 @@ const styles = StyleSheet.create({
   },
   logo: {
     height: 120,
-    marginBottom: 16,
-    marginTop: 64,
-    padding: 10,
+    marginBottom: 15,
+    marginTop: 35,
+    padding: 0,
     width: 135,
+    alignSelf: 'center'
   },
   welcome: {
-    fontSize: 20,
+    marginBottom: 50,
+    fontSize: 25,
+    color: AppSettings.mainFontColor,
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  }
+  // instructions: {
+  //   color: AppSettings.mainFontColor,
+  //   textAlign: 'center',
+  //   marginBottom: 5
+  // }
 });
