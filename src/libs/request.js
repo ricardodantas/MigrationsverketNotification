@@ -1,5 +1,6 @@
-import AppSettings from "../settings";
 import axios from "axios";
+
+import AppSettings from "../settings";
 
 const APPLICATION_STATUS_URL = `/application-status`;
 
