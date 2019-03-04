@@ -82,7 +82,7 @@ export default class App extends React.Component {
       await firebase.analytics().logEvent("user_allowed_notifications", {
         deviceUniqueId: this.state.deviceUniqueId
       });
-      this.getFcmToken();
+      await this.getFcmToken();
     } else {
       await firebase.messaging().requestPermission();
     }
