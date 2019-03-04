@@ -11,9 +11,14 @@ export const request = axios.create({
   }
 });
 
-export const getApplication = async ({ number, type, deviceUniqueId }) => {
+export const getApplication = async ({
+  number,
+  type,
+  deviceUniqueId,
+  fcmToken
+}) => {
   const result = await request.get(
-    `${APPLICATION_STATUS_URL}?number=${number}&type=${type}&deviceUniqueId=${deviceUniqueId}`
+    `${APPLICATION_STATUS_URL}?number=${number}&type=${type}&deviceUniqueId=${deviceUniqueId}&fcmToken=${fcmToken}`
   );
   return result.data;
 };

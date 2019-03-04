@@ -17,6 +17,9 @@ import AppSettings from "./settings";
 import firebase from "react-native-firebase";
 
 export default class App extends React.Component {
+  onTokenRefreshListener = null;
+  messageListener = null;
+
   constructor() {
     super();
 
@@ -27,25 +30,61 @@ export default class App extends React.Component {
     this.state = {
       deviceUniqueId,
       showLoading: false,
+      fcmToken: null,
       applicationInfo: null
     };
   }
 
   async loadApplicationInfo() {
+    const fcmToken = await this.getStoredFcmToken();
     let applicationInfo = await localStorage.getItem("application");
     if (applicationInfo) {
       this.setState({ applicationInfo, showLoading: true });
       applicationInfo = await getApplication({
         number: applicationInfo.number,
         type: applicationInfo.type,
-        deviceUniqueId: this.state.deviceUniqueId
+        deviceUniqueId: this.state.deviceUniqueId,
+        fcmToken
       });
       this.setState({ applicationInfo, showLoading: false });
     }
   }
 
+  async storeFcmToken(fcmToken) {
+    await localStorage.setItem("fcmToken", fcmToken, false);
+    this.setState({ fcmToken });
+  }
+
+  async getStoredFcmToken() {
+    return await localStorage.getItem("fcmToken", false);
+  }
+
+  async getFcmToken() {
+    const fcmToken = await firebase.messaging().getToken();
+    if (fcmToken) {
+      await this.storeFcmToken(fcmToken);
+      return fcmToken;
+    }
+    return false;
+  }
+
+  async requestNotificationPermission() {
+    const enabled = await firebase.messaging().hasPermission();
+    if (enabled) {
+      // user has permissions
+    } else {
+      await firebase.messaging().requestPermission();
+    }
+  }
+
+  componentWillUnmount() {
+    this.onTokenRefreshListener();
+    this.messageListener();
+  }
+
   async componentDidMount() {
     try {
+      this.getFcmToken();
       const { user } = await firebase.auth().signInAnonymously();
       const userInfo = user.toJSON();
       await firebase.analytics().logEvent("app_loaded", {
@@ -54,6 +93,13 @@ export default class App extends React.Component {
       });
       // await AsyncStorage.clear();
       await this.loadApplicationInfo();
+      this.onTokenRefreshListener = firebase
+        .messaging()
+        .onTokenRefresh(this.storeFcmToken);
+      this.messageListener = firebase.messaging().onMessage(message => {
+        // Process your message as required
+        console.warn("push notification content: ", message);
+      });
     } catch (error) {
       console.error(error);
     }
@@ -88,6 +134,7 @@ export default class App extends React.Component {
           ) : null}
           {this.state.applicationInfo === null ? (
             <ApplicationForm
+              fcmToken={this.state.fcmToken}
               deviceUniqueId={this.state.deviceUniqueId}
               shouldShowApplicationInfo={this.shouldShowApplicationInfo}
             />
