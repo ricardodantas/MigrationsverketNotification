@@ -60,36 +60,49 @@ export default class ApplicationForm extends React.Component {
     this.setState({ formValues });
   };
 
-  loadApplicationInfo = async ({ type, number, deviceUniqueId }) => {
+  loadApplicationInfo = async ({ type, number, deviceUniqueId, fcmToken }) => {
     try {
-      return await getApplication({ type, number, deviceUniqueId });
+      return await getApplication({
+        type,
+        number,
+        deviceUniqueId,
+        fcmToken
+      });
     } catch (error) {
       console.error(error);
     }
   };
 
   handleSubmit = async () => {
-    const formValue = this._form.getValue();
-    const { deviceUniqueId } = this.props;
-    if (formValue) {
-      const formData = { ...formValue, deviceUniqueId };
-      this.setState({ isLoading: true });
-      const applicationInfo = await this.loadApplicationInfo(formData);
-      if (applicationInfo.type && applicationInfo.number) {
-        await localStorage.setItem("application", applicationInfo);
-        this.setState({ applicationInfo });
-        await this.props.shouldShowApplicationInfo(true);
-      } else {
-        this.setState({
-          dialogInfo: {
-            title: "Sorry",
-            description: result.message,
-            show: true
-          }
-        });
+    this.setState({ isLoading: true });
+    try {
+      const formValue = this._form.getValue();
+      const { deviceUniqueId } = this.props;
+      if (formValue) {
+        const formData = {
+          ...formValue,
+          deviceUniqueId,
+          fcmToken: this.props.fcmToken
+        };
+        const applicationInfo = await this.loadApplicationInfo(formData);
+        if (applicationInfo.type && applicationInfo.number) {
+          await localStorage.setItem("application", applicationInfo);
+          this.setState({ applicationInfo });
+          await this.props.shouldShowApplicationInfo(true);
+        } else {
+          this.setState({
+            dialogInfo: {
+              title: "Sorry",
+              description: applicationInfo.message,
+              show: true
+            }
+          });
+        }
       }
-      this.setState({ isLoading: false });
+    } catch (error) {
+      console.warn(error);
     }
+    this.setState({ isLoading: false });
   };
 
   render() {

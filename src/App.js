@@ -101,7 +101,7 @@ export default class App extends React.Component {
         deviceUniqueId: this.state.deviceUniqueId
       });
       await this.requestNotificationPermission();
-      // await AsyncStorage.clear();
+      // await localStorage.clear();
       await this.loadApplicationInfo();
       this.onTokenRefreshListener = firebase
         .messaging()
