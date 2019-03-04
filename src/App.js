@@ -1,16 +1,25 @@
-import React from 'react';
-import { StyleSheet, AsyncStorage, ActivityIndicator, Image, Text, View, ScrollView } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
-import ApplicationForm from './components/ApplicationForm';
-import ApplicationInfo from './components/ApplicationInfo';
-// import { requestApplicationInfo } from './functions/requestApplicationInfo';
-import AppSettings from './settings';
+import React from "react";
+import {
+  StyleSheet,
+  ActivityIndicator,
+  Image,
+  Text,
+  View,
+  ScrollView
+} from "react-native";
+import DeviceInfo from "react-native-device-info";
+import ApplicationForm from "./components/ApplicationForm";
+import ApplicationInfo from "./components/ApplicationInfo";
+import { getApplication } from "./libs/request";
+import localStorage from "./libs/localStorage";
+import AppSettings from "./settings";
 
-import firebase from 'react-native-firebase';
+import firebase from "react-native-firebase";
 
 export default class App extends React.Component {
   constructor() {
     super();
+
     const deviceUniqueId = DeviceInfo.getUniqueID();
 
     this.shouldShowApplicationInfo = this.shouldShowApplicationInfo.bind(this);
@@ -22,31 +31,24 @@ export default class App extends React.Component {
     };
   }
 
-  loadApplicationInfo = async () => {
-    const applicationInfo = await AsyncStorage.getItem('application');
+  async loadApplicationInfo() {
+    let applicationInfo = await localStorage.getItem("application");
     if (applicationInfo) {
-      const parsedJson = JSON.parse(applicationInfo);
-      this.setState({ applicationInfo: parsedJson, showLoading: true });
-      const response = await fetch(
-        `${AppSettings.restApiBaseUrl}/application-status?number=${parsedJson.number}&type=${parsedJson.type}&deviceUniqueId=${this.state.deviceUniqueId}`,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          }
-        }
-      );
-      const updatedApplicationInfo = await response.json();
-      this.setState({ applicationInfo: updatedApplicationInfo, showLoading: false});
+      this.setState({ applicationInfo, showLoading: true });
+      applicationInfo = await getApplication({
+        number: applicationInfo.number,
+        type: applicationInfo.type,
+        deviceUniqueId: this.state.deviceUniqueId
+      });
+      this.setState({ applicationInfo, showLoading: false });
     }
-  };
+  }
 
   async componentDidMount() {
     try {
-
       const { user } = await firebase.auth().signInAnonymously();
       const userInfo = user.toJSON();
-      await firebase.analytics().logEvent('app_loaded', {
+      await firebase.analytics().logEvent("app_loaded", {
         user: userInfo,
         deviceUniqueId: this.state.deviceUniqueId
       });
@@ -55,7 +57,6 @@ export default class App extends React.Component {
     } catch (error) {
       console.error(error);
     }
-
   }
 
   async shouldShowApplicationInfo(shouldShow) {
@@ -68,9 +69,14 @@ export default class App extends React.Component {
     return (
       <ScrollView style={styles.scrollView}>
         <View style={styles.container}>
-          {<Image source={require('./assets/logo.png')} style={[styles.logo]}/>}
+          {
+            <Image
+              source={require("./assets/logo.png")}
+              style={[styles.logo]}
+            />
+          }
           <Text style={styles.welcome}>
-            Welcome to {'\n'} Migrationsverket Notification
+            Welcome to {"\n"} Migrationsverket Notification
           </Text>
           {/*
           <Text style={styles.instructions}>
@@ -88,12 +94,23 @@ export default class App extends React.Component {
             </Text>
           )}
           */}
-          { /* <PreInstalledModules /> */}
-          {this.state.showLoading ? <View style={styles.loading}><ActivityIndicator size="large" color={AppSettings.mainFontColor} /></View> : null}
-          {this.state.applicationInfo === null ?
-            <ApplicationForm deviceUniqueId={this.state.deviceUniqueId} shouldShowApplicationInfo={this.shouldShowApplicationInfo} /> :
+          {/* <PreInstalledModules /> */}
+          {this.state.showLoading ? (
+            <View style={styles.loading}>
+              <ActivityIndicator
+                size="large"
+                color={AppSettings.mainFontColor}
+              />
+            </View>
+          ) : null}
+          {this.state.applicationInfo === null ? (
+            <ApplicationForm
+              deviceUniqueId={this.state.deviceUniqueId}
+              shouldShowApplicationInfo={this.shouldShowApplicationInfo}
+            />
+          ) : (
             <ApplicationInfo {...this.state.applicationInfo} />
-        }
+          )}
         </View>
       </ScrollView>
     );
@@ -105,14 +122,14 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   scrollView: {
-    backgroundColor: AppSettings.mainColor,
+    backgroundColor: AppSettings.mainColor
   },
   container: {
     padding: 15,
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'stretch'
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "stretch"
   },
   logo: {
     height: 120,
@@ -120,15 +137,15 @@ const styles = StyleSheet.create({
     marginTop: 35,
     padding: 0,
     width: 135,
-    alignSelf: 'center'
+    alignSelf: "center"
   },
   welcome: {
     marginBottom: 50,
     fontSize: 25,
     color: AppSettings.mainFontColor,
-    textAlign: 'center',
-    margin: 10,
-  },
+    textAlign: "center",
+    margin: 10
+  }
   // instructions: {
   //   color: AppSettings.mainFontColor,
   //   textAlign: 'center',
