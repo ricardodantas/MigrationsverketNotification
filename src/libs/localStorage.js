@@ -8,7 +8,7 @@ const setItem = async (key, value, isJSON = true) => {
 };
 
 const getItem = async (key, isJSON = true) => {
-  const value = await AsyncStorage.getItem(key);
+  let value = await AsyncStorage.getItem(key);
   if (isJSON) {
     value = JSON.parse(value);
   }
