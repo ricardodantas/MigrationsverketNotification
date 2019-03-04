@@ -46,11 +46,19 @@ export default class App extends React.Component {
         deviceUniqueId: this.state.deviceUniqueId,
         fcmToken
       });
+      await firebase.analytics().logEvent("load_applicationInfo", {
+        applicationInfo,
+        deviceUniqueId: this.state.deviceUniqueId
+      });
       this.setState({ applicationInfo, showLoading: false });
     }
   }
 
   async storeFcmToken(fcmToken) {
+    await firebase.analytics().logEvent("set_fcmToken", {
+      fcmToken,
+      deviceUniqueId: this.state.deviceUniqueId
+    });
     await localStorage.setItem("fcmToken", fcmToken, false);
     this.setState({ fcmToken });
   }
@@ -71,7 +79,10 @@ export default class App extends React.Component {
   async requestNotificationPermission() {
     const enabled = await firebase.messaging().hasPermission();
     if (enabled) {
-      // user has permissions
+      await firebase.analytics().logEvent("user_allowed_notifications", {
+        deviceUniqueId: this.state.deviceUniqueId
+      });
+      this.getFcmToken();
     } else {
       await firebase.messaging().requestPermission();
     }
@@ -84,13 +95,12 @@ export default class App extends React.Component {
 
   async componentDidMount() {
     try {
-      this.getFcmToken();
       const { user } = await firebase.auth().signInAnonymously();
-      const userInfo = user.toJSON();
+      // const userInfo = user.toJSON();
       await firebase.analytics().logEvent("app_loaded", {
-        user: userInfo,
         deviceUniqueId: this.state.deviceUniqueId
       });
+      await this.requestNotificationPermission();
       // await AsyncStorage.clear();
       await this.loadApplicationInfo();
       this.onTokenRefreshListener = firebase
