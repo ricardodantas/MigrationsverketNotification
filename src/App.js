@@ -78,23 +78,6 @@ export default class App extends React.Component {
           <Text style={styles.welcome}>
             Welcome to {"\n"} Migrationsverket Notification
           </Text>
-          {/*
-          <Text style={styles.instructions}>
-            To get started, edit App.js
-          </Text>
-          {Platform.OS === 'ios' ? (
-            <Text style={styles.instructions}>
-              Press Cmd+R to reload,{'\n'}
-              Cmd+D or shake for dev menu
-            </Text>
-          ) : (
-            <Text style={styles.instructions}>
-              Double tap R on your keyboard to reload,{'\n'}
-              Cmd+M or shake for dev menu
-            </Text>
-          )}
-          */}
-          {/* <PreInstalledModules /> */}
           {this.state.showLoading ? (
             <View style={styles.loading}>
               <ActivityIndicator

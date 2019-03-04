@@ -1,10 +1,12 @@
-import React from 'react';
-import { AsyncStorage, StyleSheet, ActivityIndicator, View, Button } from 'react-native';
+import React from "react";
+import { StyleSheet, ActivityIndicator, View, Button } from "react-native";
 
 import Dialog from "./Dialog";
-import AppSettings from '../settings';
+import AppSettings from "../settings";
+import { getApplication } from "../libs/request";
+import localStorage from "../libs/localStorage";
 
-import t from 'tcomb-form-native';
+import t from "tcomb-form-native";
 
 const Form = t.form.Form;
 
@@ -13,21 +15,22 @@ const formOptions = {
     number: {
       maxLength: 9,
       minLength: 7,
-      error: 'Insert a valid number.',
-      help: '7-9 numbers without a dash (-)!'
+      error: "Insert a valid number.",
+      help: "7-9 numbers without a dash (-)!"
     },
     type: {
-      error: 'Choose a type.',
-      nullOption: {value: '', text: 'Choose the type of the number'},
-      order: 'asc',
-      help: 'The case number is in the top right corner of the letters you get from the Migration Agency. The check number is in the e-mail you received from the Migration Agency if you applied online.'
+      error: "Choose a type.",
+      nullOption: { value: "", text: "Choose the type of the number" },
+      order: "asc",
+      help:
+        "The case number is in the top right corner of the letters you get from the Migration Agency. The check number is in the e-mail you received from the Migration Agency if you applied online."
     }
   }
 };
 
 const applicationType = t.enums({
-  1: 'Case number',
-  2: 'Check number'
+  1: "Case number",
+  2: "Check number"
 });
 
 const Application = t.struct({
@@ -35,42 +38,31 @@ const Application = t.struct({
   number: t.Number
 });
 
-
 export default class ApplicationForm extends React.Component {
-
   constructor() {
     super();
     this.state = {
       isLoading: false,
       applicationInfo: null,
       dialogInfo: {
-        title: '',
-        description: '',
+        title: "",
+        description: "",
         show: false
       },
       formValues: {
-        number: '',
-        type: ''
+        number: "",
+        type: ""
       }
     };
   }
 
-  onChange = (formValues) => {
+  onChange = formValues => {
     this.setState({ formValues });
   };
 
   loadApplicationInfo = async ({ type, number, deviceUniqueId }) => {
     try {
-      const response = await fetch(
-        `${AppSettings.restApiBaseUrl}/application-status?number=${number}&type=${type}&deviceUniqueId=${deviceUniqueId}`,
-        {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          }
-        }
-      );
-      return await response.json();
+      return await getApplication({ type, number, deviceUniqueId });
     } catch (error) {
       console.error(error);
     }
@@ -82,32 +74,34 @@ export default class ApplicationForm extends React.Component {
     if (formValue) {
       const formData = { ...formValue, deviceUniqueId };
       this.setState({ isLoading: true });
-      const result = await this.loadApplicationInfo(formData);
-      if (result.type && result.number) {
-        await AsyncStorage.setItem('application', JSON.stringify(result));
-        this.setState({ applicationInfo: result });
+      const applicationInfo = await this.loadApplicationInfo(formData);
+      if (applicationInfo.type && applicationInfo.number) {
+        await localStorage.setItem("application", applicationInfo);
+        this.setState({ applicationInfo });
         await this.props.shouldShowApplicationInfo(true);
       } else {
         this.setState({
           dialogInfo: {
-            title: 'Sorry',
+            title: "Sorry",
             description: result.message,
             show: true
-        }});
+          }
+        });
       }
       this.setState({ isLoading: false });
     }
-  }
+  };
 
   render() {
     return (
       <View>
-        {this.state.isLoading ?
-          <ActivityIndicator size="large" color={AppSettings.mainFontColor} /> :
+        {this.state.isLoading ? (
+          <ActivityIndicator size="large" color={AppSettings.mainFontColor} />
+        ) : (
           <View style={styles.form}>
             <Form
               options={formOptions}
-              ref={c => this._form = c}
+              ref={c => (this._form = c)}
               type={Application}
               value={this.state.formValues}
               onChange={this.onChange}
@@ -116,11 +110,14 @@ export default class ApplicationForm extends React.Component {
               title="Save"
               color={AppSettings.mainFontColorInverted}
               onPress={this.handleSubmit}
-              disabled={this.state.formValues.number === '' || this.state.formValues.type === ''}
+              disabled={
+                this.state.formValues.number === "" ||
+                this.state.formValues.type === ""
+              }
             />
             <Dialog {...this.state.dialogInfo} />
           </View>
-        }
+        )}
       </View>
     );
   }
