@@ -27,7 +27,7 @@
     "react-native": "^0.58.6",
     "react-native-device-info": "^0.26.4",
     "react-native-dialog": "^5.5.0",
-    "react-native-firebase": "^5.2.0",
+    "react-native-firebase": "^5.2.3",
     "tcomb-form-native": "^0.6.20"
   }
 }
