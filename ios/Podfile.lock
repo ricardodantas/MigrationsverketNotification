@@ -11,6 +11,8 @@ PODS:
   - Firebase/AdMob (5.15.0):
     - Firebase/Core
     - Google-Mobile-Ads-SDK (~> 7.37)
+  - Firebase/Analytics (5.15.0):
+    - Firebase/Core
   - Firebase/Auth (5.15.0):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.2.0)
@@ -189,6 +191,7 @@ DEPENDENCIES:
   - Crashlytics (~> 3.10.9)
   - Fabric (~> 1.7.13)
   - Firebase/AdMob (~> 5.15.0)
+  - Firebase/Analytics (~> 5.15.0)
   - Firebase/Auth (~> 5.15.0)
   - Firebase/Core (~> 5.15.0)
   - Firebase/Database (~> 5.15.0)
@@ -271,6 +274,6 @@ SPEC CHECKSUMS:
   React: ab1a2e21deb34965c38328d5ec40cc7d12c6050a
   RNDeviceInfo: e7c5fcde13d40e161d8a27f6c5dc69c638936002
 
-PODFILE CHECKSUM: 4c592cadbe8a7e00c71db15d77791ca9868f0de4
+PODFILE CHECKSUM: c94c95b89b95facc0fe59b8b9bf545ead2a9c4df
 
 COCOAPODS: 1.6.1
