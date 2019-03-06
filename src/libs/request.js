@@ -2,7 +2,7 @@
 
 import AppSettings from "../settings";
 
-const APPLICATION_STATUS_URL = `/application-status`;
+const APPLICATION_STATUS_URL = `application-status`;
 
 // export const request = axios.create({
 //   baseURL: AppSettings.restApiBaseUrl,
