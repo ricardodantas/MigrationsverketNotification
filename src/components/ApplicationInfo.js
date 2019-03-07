@@ -1,12 +1,12 @@
-import React from 'react';
-import { StyleSheet, View, Text, AsyncStorage} from 'react-native';
+import React from "react";
+import { StyleSheet, View, Text } from "react-native";
 
-import AppSettings from '../settings';
+import AppSettings from "../settings";
 
 export default class ApplicationInfo extends React.Component {
   constructor() {
     super();
-    this.state = { };
+    this.state = {};
   }
 
   render() {
@@ -29,13 +29,13 @@ const styles = StyleSheet.create({
   },
   number: {
     fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     color: AppSettings.mainFontColorInverted
   },
   status: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 30,
     marginTop: 30,
     color: AppSettings.mainFontColorInverted
@@ -43,6 +43,6 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 15,
     lineHeight: 25,
-    textAlign: 'justify'
+    textAlign: "justify"
   }
 });
