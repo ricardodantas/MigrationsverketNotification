@@ -209,7 +209,7 @@ export default class App extends React.Component {
         style={styles.scrollView}
         refreshControl={
           <RefreshControl
-            // tintColor={AppSettings.mainFontColor}
+            tintColor={AppSettings.mainFontColor}
             refreshing={false}
             onRefresh={this.onScrollRefresh}
           />
