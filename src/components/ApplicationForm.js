@@ -51,6 +51,9 @@ export default class ApplicationForm extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+  }
+
   onChange = formValues => {
     this.setState({ formValues });
   };
@@ -83,7 +86,7 @@ export default class ApplicationForm extends React.Component {
         if (applicationInfo.type && applicationInfo.number) {
           await localStorage.setItem("application", applicationInfo);
           this.setState({ applicationInfo });
-          await this.props.shouldShowApplicationInfo(true);
+          this.props.shouldShowApplicationInfo(true);
         } else {
           alert.openAlert({
             title: "Sorry",

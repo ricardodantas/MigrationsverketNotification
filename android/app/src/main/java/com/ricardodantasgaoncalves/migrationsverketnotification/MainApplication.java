@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
 import io.invertase.firebase.RNFirebasePackage;
 import com.facebook.react.ReactNativeHost;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.asList(
         new MainReactPackage(),
+            new RNCWebViewPackage(),
             new RNDeviceInfo(),
             new RNFirebasePackage(),
         new RNFirebasePackage(),

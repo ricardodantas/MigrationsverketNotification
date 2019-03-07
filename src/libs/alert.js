@@ -1,3 +1,5 @@
+import { Alert } from "react-native";
+
 const openAlert = ({ title, body }) => {
   Alert.alert(
     title,

@@ -7,7 +7,8 @@ import {
   Image,
   Text,
   View,
-  ScrollView
+  ScrollView,
+  Keyboard
 } from "react-native";
 import DeviceInfo from "react-native-device-info";
 
@@ -35,6 +36,7 @@ export default class App extends React.Component {
     this.shouldShowApplicationInfo = this.shouldShowApplicationInfo.bind(this);
 
     this.state = {
+      isKeyboardOpened: false,
       BuiltInBrowser: {
         show: false,
         url: null
@@ -48,6 +50,7 @@ export default class App extends React.Component {
 
   async loadApplicationInfo() {
     const fcmToken = await this.getStoredFcmToken();
+    // console.warn(fcmToken);
     let applicationInfo = await localStorage.getItem("application");
     if (applicationInfo) {
       this.setState({ applicationInfo, showLoading: true });
@@ -63,10 +66,6 @@ export default class App extends React.Component {
       // });
       this.setState({ applicationInfo, showLoading: false });
     }
-  }
-
-  async onScrollRefresh() {
-    await this.loadApplicationInfo();
   }
 
   async storeFcmToken(fcmToken) {
@@ -107,6 +106,8 @@ export default class App extends React.Component {
     this.onTokenRefreshListener();
     this.notificationListener();
     this.notificationOpenedListener();
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
   }
 
   async componentDidMount() {
@@ -116,16 +117,32 @@ export default class App extends React.Component {
       // await firebase.analytics().logEvent("app_loaded", {
       //   deviceUniqueId: this.state.deviceUniqueId
       // });
+      this.keyboardDidShowListener = Keyboard.addListener(
+        'keyboardDidShow',
+        () => this.setState({isKeyboardOpened: true}),
+      );
+      this.keyboardDidHideListener = Keyboard.addListener(
+        'keyboardDidHide',
+        () => this.setState({isKeyboardOpened: false}),
+      );
       await this.requestNotificationPermission();
       await this.createNotificationListeners();
-      // await localStorage.clear();
-      await this.loadApplicationInfo();
+      await localStorage.clear();
+      // await this.loadApplicationInfo();
       this.onTokenRefreshListener = firebase
         .messaging()
         .onTokenRefresh(this.storeFcmToken);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  openBultInBrowser(url) {
+    this.setState({
+      BuiltInBrowser: {
+        show: true,
+        url
+    }});
   }
 
   async createNotificationListeners() {
@@ -142,6 +159,7 @@ export default class App extends React.Component {
       .onNotification(notification => {
         const { title, body } = notification;
         this.showAlert(title, body);
+        // this.openBultInBrowser(notification.data.url);
       });
 
     /*
@@ -152,6 +170,8 @@ export default class App extends React.Component {
       .onNotificationOpened(notificationOpen => {
         const { title, body } = notificationOpen.notification;
         this.showAlert(title, body);
+        // console.warn(notificationOpen);
+        // this.openBultInBrowser(notificationOpen.data.url);
       });
 
     /*
@@ -163,6 +183,8 @@ export default class App extends React.Component {
     if (notificationOpen) {
       const { title, body } = notificationOpen.notification;
       this.showAlert(title, body);
+      // console.warn(notificationOpen);
+      // this.openBultInBrowser(notificationOpen.data.url);
     }
     /*
      * Triggered for data only payload in foreground
@@ -183,6 +205,10 @@ export default class App extends React.Component {
     alert.openAlert({ title, body });
   }
 
+  _onRefresh = () => {
+    this.loadApplicationInfo();
+  }
+
   renderApplicationInfo() {
     if (this.state.applicationInfo !== null) {
       return <ApplicationInfo {...this.state.applicationInfo} />;
@@ -191,7 +217,7 @@ export default class App extends React.Component {
   }
 
   renderApplicationForm() {
-    if (this.state.applicationInfo === null) {
+    if (this.state.applicationInfo !== null) {
       return null;
     }
     return (
@@ -209,41 +235,42 @@ export default class App extends React.Component {
         style={styles.scrollView}
         refreshControl={
           <RefreshControl
+            title="Pull to refresh"
+            titleColor={AppSettings.mainFontColor}
             tintColor={AppSettings.mainFontColor}
             refreshing={false}
-            onRefresh={this.onScrollRefresh}
+            onRefresh={this._onRefresh}
           />
         }
       >
         <KeyboardAvoidingView
-          style={styles.container}
-          behavior="padding"
-          enabled
+          behavior="position"
+          enabled={this.state.isKeyboardOpened}
         >
-          <View>
-            {
-              <Image
-                source={require("../assets/logo.png")}
-                style={[styles.logo]}
+          <View style={styles.container}>
+          {
+            <Image
+              source={require("../assets/logo.png")}
+              style={[styles.logo]}
+            />
+          }
+          <Text style={styles.welcome}>
+            Welcome to {"\n"} Migrationsverket Notification
+          </Text>
+          {this.state.showLoading ? (
+            <View style={styles.loading}>
+              <ActivityIndicator
+                size="large"
+                color={AppSettings.mainFontColor}
               />
-            }
-            <Text style={styles.welcome}>
-              Welcome to {"\n"} Migrationsverket Notification
-            </Text>
-            {this.state.showLoading ? (
-              <View style={styles.loading}>
-                <ActivityIndicator
-                  size="large"
-                  color={AppSettings.mainFontColor}
-                />
-              </View>
-            ) : null}
-            {this.renderApplicationForm()}
-            {this.state.BuiltInBrowser.show ? (
-              <BuiltInBrowser url={this.state.BuiltInBrowser.url} />
-            ) : (
-              this.renderApplicationInfo()
-            )}
+            </View>
+          ) : null}
+          {this.renderApplicationForm()}
+          {this.state.BuiltInBrowser.show ? (
+            <BuiltInBrowser url={this.state.BuiltInBrowser.url} />
+          ) : (
+            this.renderApplicationInfo()
+              )}
           </View>
         </KeyboardAvoidingView>
       </ScrollView>

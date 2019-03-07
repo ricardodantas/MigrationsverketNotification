@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { WebView } from "react-native";
+import { StyleSheet } from "react-native";
+import { WebView } from "react-native-webview";
 
 export default class BuiltInBrowser extends Component {
   render() {
