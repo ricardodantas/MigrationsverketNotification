@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet, ActivityIndicator, View, Button } from "react-native";
 
-import Dialog from "./Dialog";
 import AppSettings from "../settings";
 import { getApplication } from "../libs/request";
+import alert from "../libs/alert";
 import localStorage from "../libs/localStorage";
 
 import t from "tcomb-form-native";
@@ -44,11 +44,6 @@ export default class ApplicationForm extends React.Component {
     this.state = {
       isLoading: false,
       applicationInfo: null,
-      dialogInfo: {
-        title: "",
-        description: "",
-        show: false
-      },
       formValues: {
         number: "",
         type: ""
@@ -90,12 +85,9 @@ export default class ApplicationForm extends React.Component {
           this.setState({ applicationInfo });
           await this.props.shouldShowApplicationInfo(true);
         } else {
-          this.setState({
-            dialogInfo: {
-              title: "Sorry",
-              description: applicationInfo.message,
-              show: true
-            }
+          alert.openAlert({
+            title: "Sorry",
+            body: applicationInfo.message
           });
         }
       }
@@ -128,7 +120,6 @@ export default class ApplicationForm extends React.Component {
                 this.state.formValues.type === ""
               }
             />
-            <Dialog {...this.state.dialogInfo} />
           </View>
         )}
       </View>
