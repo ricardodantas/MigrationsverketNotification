@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  RefreshControl,
   KeyboardAvoidingView,
   StyleSheet,
   ActivityIndicator,
@@ -55,6 +56,10 @@ export default class App extends React.Component {
       // });
       this.setState({ applicationInfo, showLoading: false });
     }
+  }
+
+  async onScrollRefresh() {
+    await this.loadApplicationInfo();
   }
 
   async storeFcmToken(fcmToken) {
@@ -173,7 +178,15 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.scrollView}>
+      <ScrollView
+        style={styles.scrollView}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.showLoading}
+            onRefresh={this.onScrollRefresh}
+          />
+        }
+      >
         <KeyboardAvoidingView
           style={styles.container}
           behavior="padding"
