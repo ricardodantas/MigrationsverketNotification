@@ -183,6 +183,26 @@ export default class App extends React.Component {
     alert.openAlert({ title, body });
   }
 
+  renderApplicationInfo() {
+    if (this.state.applicationInfo !== null) {
+      return <ApplicationInfo {...this.state.applicationInfo} />;
+    }
+    return null;
+  }
+
+  renderApplicationForm() {
+    if (this.state.applicationInfo === null) {
+      return null;
+    }
+    return (
+      <ApplicationForm
+        fcmToken={this.state.fcmToken}
+        deviceUniqueId={this.state.deviceUniqueId}
+        shouldShowApplicationInfo={this.shouldShowApplicationInfo}
+      />
+    );
+  }
+
   render() {
     return (
       <ScrollView
@@ -218,18 +238,12 @@ export default class App extends React.Component {
                 />
               </View>
             ) : null}
-            {this.state.applicationInfo === null ? (
-              <ApplicationForm
-                fcmToken={this.state.fcmToken}
-                deviceUniqueId={this.state.deviceUniqueId}
-                shouldShowApplicationInfo={this.shouldShowApplicationInfo}
-              />
-            ) : (
-              <ApplicationInfo {...this.state.applicationInfo} />
-            )}
+            {this.renderApplicationForm()}
             {this.state.BuiltInBrowser.show ? (
               <BuiltInBrowser url={this.state.BuiltInBrowser.url} />
-            ) : null}
+            ) : (
+              this.renderApplicationInfo()
+            )}
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
