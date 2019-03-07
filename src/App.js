@@ -182,7 +182,8 @@ export default class App extends React.Component {
         style={styles.scrollView}
         refreshControl={
           <RefreshControl
-            refreshing={this.state.showLoading}
+            // tintColor={AppSettings.mainFontColor}
+            refreshing={false}
             onRefresh={this.onScrollRefresh}
           />
         }
