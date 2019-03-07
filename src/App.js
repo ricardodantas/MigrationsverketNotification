@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  KeyboardAvoidingView,
   StyleSheet,
   ActivityIndicator,
   Image,
@@ -173,34 +174,40 @@ export default class App extends React.Component {
   render() {
     return (
       <ScrollView style={styles.scrollView}>
-        <View style={styles.container}>
-          {
-            <Image
-              source={require("../assets/logo.png")}
-              style={[styles.logo]}
-            />
-          }
-          <Text style={styles.welcome}>
-            Welcome to {"\n"} Migrationsverket Notification
-          </Text>
-          {this.state.showLoading ? (
-            <View style={styles.loading}>
-              <ActivityIndicator
-                size="large"
-                color={AppSettings.mainFontColor}
+        <KeyboardAvoidingView
+          style={styles.container}
+          behavior="padding"
+          enabled
+        >
+          <View>
+            {
+              <Image
+                source={require("../assets/logo.png")}
+                style={[styles.logo]}
               />
-            </View>
-          ) : null}
-          {this.state.applicationInfo === null ? (
-            <ApplicationForm
-              fcmToken={this.state.fcmToken}
-              deviceUniqueId={this.state.deviceUniqueId}
-              shouldShowApplicationInfo={this.shouldShowApplicationInfo}
-            />
-          ) : (
-            <ApplicationInfo {...this.state.applicationInfo} />
-          )}
-        </View>
+            }
+            <Text style={styles.welcome}>
+              Welcome to {"\n"} Migrationsverket Notification
+            </Text>
+            {this.state.showLoading ? (
+              <View style={styles.loading}>
+                <ActivityIndicator
+                  size="large"
+                  color={AppSettings.mainFontColor}
+                />
+              </View>
+            ) : null}
+            {this.state.applicationInfo === null ? (
+              <ApplicationForm
+                fcmToken={this.state.fcmToken}
+                deviceUniqueId={this.state.deviceUniqueId}
+                shouldShowApplicationInfo={this.shouldShowApplicationInfo}
+              />
+            ) : (
+              <ApplicationInfo {...this.state.applicationInfo} />
+            )}
+          </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     );
   }
