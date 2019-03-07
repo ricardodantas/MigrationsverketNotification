@@ -10,8 +10,11 @@ import {
   ScrollView
 } from "react-native";
 import DeviceInfo from "react-native-device-info";
+
 import ApplicationForm from "./components/ApplicationForm";
 import ApplicationInfo from "./components/ApplicationInfo";
+import BuiltInBrowser from "./components/BuiltInBrowser";
+
 import { getApplication } from "./libs/request";
 import localStorage from "./libs/localStorage";
 import alert from "./libs/alert";
@@ -32,6 +35,10 @@ export default class App extends React.Component {
     this.shouldShowApplicationInfo = this.shouldShowApplicationInfo.bind(this);
 
     this.state = {
+      BuiltInBrowser: {
+        show: false,
+        url: null
+      },
       deviceUniqueId,
       showLoading: false,
       fcmToken: null,
@@ -220,6 +227,9 @@ export default class App extends React.Component {
             ) : (
               <ApplicationInfo {...this.state.applicationInfo} />
             )}
+            {this.state.BuiltInBrowser.show ? (
+              <BuiltInBrowser url={this.state.BuiltInBrowser.url} />
+            ) : null}
           </View>
         </KeyboardAvoidingView>
       </ScrollView>
