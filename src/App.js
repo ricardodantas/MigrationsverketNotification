@@ -12,13 +12,15 @@ import ApplicationForm from "./components/ApplicationForm";
 import ApplicationInfo from "./components/ApplicationInfo";
 import { getApplication } from "./libs/request";
 import localStorage from "./libs/localStorage";
+import alert from "./libs/alert";
 import AppSettings from "./settings";
 
 import firebase from "react-native-firebase";
 
 export default class App extends React.Component {
   onTokenRefreshListener = null;
-  messageListener = null;
+  notificationListener = null;
+  notificationOpenedListener = null;
 
   constructor() {
     super();
@@ -90,35 +92,82 @@ export default class App extends React.Component {
 
   componentWillUnmount() {
     this.onTokenRefreshListener();
-    this.messageListener();
+    this.notificationListener();
+    this.notificationOpenedListener();
   }
 
   async componentDidMount() {
     try {
-      const { user } = await firebase.auth().signInAnonymously();
+      // const { user } = await firebase.auth().signInAnonymously();
       // const userInfo = user.toJSON();
       // await firebase.analytics().logEvent("app_loaded", {
       //   deviceUniqueId: this.state.deviceUniqueId
       // });
       await this.requestNotificationPermission();
+      await this.createNotificationListeners();
       // await localStorage.clear();
       await this.loadApplicationInfo();
       this.onTokenRefreshListener = firebase
         .messaging()
         .onTokenRefresh(this.storeFcmToken);
-      this.messageListener = firebase.messaging().onMessage(message => {
-        // Process your message as required
-        console.warn("push notification content: ", message);
-      });
     } catch (error) {
       console.error(error);
     }
+  }
+
+  async createNotificationListeners() {
+    // this.notificationListener = firebase.messaging().onMessage(message => {
+    //   // Process your message as required
+    //   console.warn("push notification content: ", message);
+    // });
+
+    /*
+     * Triggered when a particular notification has been received in foreground
+     * */
+    this.notificationListener = firebase
+      .notifications()
+      .onNotification(notification => {
+        const { title, body } = notification;
+        this.showAlert(title, body);
+      });
+
+    /*
+     * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+     * */
+    this.notificationOpenedListener = firebase
+      .notifications()
+      .onNotificationOpened(notificationOpen => {
+        const { title, body } = notificationOpen.notification;
+        this.showAlert(title, body);
+      });
+
+    /*
+     * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
+     * */
+    const notificationOpen = await firebase
+      .notifications()
+      .getInitialNotification();
+    if (notificationOpen) {
+      const { title, body } = notificationOpen.notification;
+      this.showAlert(title, body);
+    }
+    /*
+     * Triggered for data only payload in foreground
+     * */
+    this.messageListener = firebase.messaging().onMessage(message => {
+      //process data message
+      console.log(JSON.stringify(message));
+    });
   }
 
   async shouldShowApplicationInfo(shouldShow) {
     if (shouldShow) {
       await this.loadApplicationInfo();
     }
+  }
+
+  showAlert(title, body) {
+    alert.openAlert({ title, body });
   }
 
   render() {
