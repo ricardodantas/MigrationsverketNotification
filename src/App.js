@@ -127,8 +127,8 @@ export default class App extends React.Component {
       );
       await this.requestNotificationPermission();
       await this.createNotificationListeners();
-      await localStorage.clear();
-      // await this.loadApplicationInfo();
+      // await localStorage.clear();
+      await this.loadApplicationInfo();
       this.onTokenRefreshListener = firebase
         .messaging()
         .onTokenRefresh(this.storeFcmToken);

@@ -11,6 +11,7 @@
     "replace-in-file": "^3.4.2"
   },
   "scripts": {
+    "ios:generate:icons": "yo rn-toolbox:assets --icon assets/logo.png",
     "ios:build:release": "react-native run-ios --configuration Release",
     "android": "react-native run-android",
     "ios": "react-native run-ios --simulator=\"iPhone X\"",
