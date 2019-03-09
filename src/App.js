@@ -233,14 +233,14 @@ export default class App extends React.Component {
     return (
       <ScrollView
         style={styles.scrollView}
-        refreshControl={
+        refreshControl={this.state.applicationInfo ?
           <RefreshControl
             title="Pull to refresh"
             titleColor={AppSettings.mainFontColor}
             tintColor={AppSettings.mainFontColor}
             refreshing={false}
             onRefresh={this._onRefresh}
-          />
+          />:false
         }
       >
         <KeyboardAvoidingView
