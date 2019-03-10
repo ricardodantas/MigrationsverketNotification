@@ -183,8 +183,6 @@ PODS:
   - Protobuf (3.7.0)
   - React (0.11.0):
     - React/Core (= 0.11.0)
-  - react-native-webview (5.3.0):
-    - React
   - React/Core (0.11.0)
   - RNDeviceInfo (0.21.5):
     - React
@@ -204,7 +202,6 @@ DEPENDENCIES:
   - Firebase/Performance (~> 5.15.0)
   - Firebase/RemoteConfig (~> 5.15.0)
   - Firebase/Storage (~> 5.15.0)
-  - react-native-webview (from `../node_modules/react-native-webview`)
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
 
 SPEC REPOS:
@@ -241,8 +238,6 @@ SPEC REPOS:
     - React
 
 EXTERNAL SOURCES:
-  react-native-webview:
-    :path: "../node_modules/react-native-webview"
   RNDeviceInfo:
     :path: "../node_modules/react-native-device-info"
 
@@ -277,9 +272,8 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   React: ab1a2e21deb34965c38328d5ec40cc7d12c6050a
-  react-native-webview: 928449b030fdc84f3de5cccef78c34309ab3fb6c
   RNDeviceInfo: e7c5fcde13d40e161d8a27f6c5dc69c638936002
 
-PODFILE CHECKSUM: 0f0b30f19b1d36f0f4fb0ed6ec71aa8300bdf997
+PODFILE CHECKSUM: e9d179a0d14a9d1b86e166f65056a71049cfc4cc
 
 COCOAPODS: 1.6.1
