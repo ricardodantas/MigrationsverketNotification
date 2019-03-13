@@ -154,7 +154,7 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-device-info')
+    implementation project(':react-native-firebase')
   //noinspection GradleDynamicVersion
   implementation "com.facebook.react:react-native:+"
   implementation fileTree(dir: "libs", include: ["*.jar"])

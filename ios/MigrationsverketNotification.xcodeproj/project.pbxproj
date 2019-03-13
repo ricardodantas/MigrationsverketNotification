@@ -35,10 +35,10 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* MigrationsverketNotificationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MigrationsverketNotificationTests.m */; };
+		3397969EAD3DFB5DB4E69AD4 /* libPods-MigrationsverketNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E9D7689560B5C4D204C536E /* libPods-MigrationsverketNotification.a */; };
 		68B70528A2734DEA89C8B214 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FBC8C743C046423C960F2237 /* libRNFirebase.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8E7D4B171F8AFD9C00699FE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8E7D4B161F8AFD9B00699FE4 /* GoogleService-Info.plist */; };
-		A038CD85D39748E122AC50D7 /* libPods-MigrationsverketNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 333056BA5B7ADABE709DF4A1 /* libPods-MigrationsverketNotification.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 /* End PBXBuildFile section */
 
@@ -345,18 +345,19 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MigrationsverketNotification/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MigrationsverketNotification/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
+		1E9D7689560B5C4D204C536E /* libPods-MigrationsverketNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MigrationsverketNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* MigrationsverketNotification-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MigrationsverketNotification-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MigrationsverketNotification-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MigrationsverketNotification-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		333056BA5B7ADABE709DF4A1 /* libPods-MigrationsverketNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MigrationsverketNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4031C5D3468A6410BB4016B9 /* Pods-MigrationsverketNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MigrationsverketNotification.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MigrationsverketNotification/Pods-MigrationsverketNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		58137AF92237A39200D49577 /* MigrationsverketNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MigrationsverketNotification.entitlements; path = MigrationsverketNotification/MigrationsverketNotification.entitlements; sourceTree = "<group>"; };
+		58FB5D2C223820C6004C43E6 /* libRNDeviceInfo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNDeviceInfo.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		897F8B88605FC4847913293F /* Pods-MigrationsverketNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MigrationsverketNotification.debug.xcconfig"; path = "Target Support Files/Pods-MigrationsverketNotification/Pods-MigrationsverketNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		8E7D4B161F8AFD9B00699FE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		ADF4CB3C3BF44D3EBA8B78C4 /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
-		B7AFA8AA9A1CFD17320E9074 /* Pods-MigrationsverketNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MigrationsverketNotification.release.xcconfig"; path = "Pods/Target Support Files/Pods-MigrationsverketNotification/Pods-MigrationsverketNotification.release.xcconfig"; sourceTree = "<group>"; };
+		BBDBFF07AB243B35BFAEBB00 /* Pods-MigrationsverketNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MigrationsverketNotification.release.xcconfig"; path = "Target Support Files/Pods-MigrationsverketNotification/Pods-MigrationsverketNotification.release.xcconfig"; sourceTree = "<group>"; };
 		FBC8C743C046423C960F2237 /* libRNFirebase.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNFirebase.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -386,7 +387,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				68B70528A2734DEA89C8B214 /* libRNFirebase.a in Frameworks */,
-				A038CD85D39748E122AC50D7 /* libPods-MigrationsverketNotification.a in Frameworks */,
+				3397969EAD3DFB5DB4E69AD4 /* libPods-MigrationsverketNotification.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,13 +542,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6A84F842C723265FECF9ADFD /* Pods */ = {
+		6AE719D76C3DE3A1A5F7C0A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4031C5D3468A6410BB4016B9 /* Pods-MigrationsverketNotification.debug.xcconfig */,
-				B7AFA8AA9A1CFD17320E9074 /* Pods-MigrationsverketNotification.release.xcconfig */,
+				58FB5D2C223820C6004C43E6 /* libRNDeviceInfo.a */,
+				1E9D7689560B5C4D204C536E /* libPods-MigrationsverketNotification.a */,
 			);
-			name = Pods;
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		73C4402A7E97BF22263B5B83 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				897F8B88605FC4847913293F /* Pods-MigrationsverketNotification.debug.xcconfig */,
+				BBDBFF07AB243B35BFAEBB00 /* Pods-MigrationsverketNotification.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 		78C398B11ACF4ADC00677621 /* Products */ = {
@@ -596,9 +606,9 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* MigrationsverketNotificationTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
-				6A84F842C723265FECF9ADFD /* Pods */,
-				927E270FF1706B5003F5613D /* Frameworks */,
 				8E7D4AFB1F8AFD6F00699FE4 /* Recovered References */,
+				73C4402A7E97BF22263B5B83 /* Pods */,
+				6AE719D76C3DE3A1A5F7C0A6 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -630,14 +640,6 @@
 				8E7D4B151F8AFD6F00699FE4 /* libRNFirebase.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		927E270FF1706B5003F5613D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				333056BA5B7ADABE709DF4A1 /* libPods-MigrationsverketNotification.a */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
@@ -674,13 +676,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MigrationsverketNotification" */;
 			buildPhases = (
-				7EEED693062F803EA2B9E72F /* [CP] Check Pods Manifest.lock */,
+				9DAA8C4552C14AE1B0A88202 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				E3571EA012ECF1F3BF17F035 /* [CP] Copy Pods Resources */,
 				83B761F71FE42BDD00F21A7A /* Crashlytics */,
+				AE24C4C9BC02818F6358DF90 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1173,24 +1175,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		7EEED693062F803EA2B9E72F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MigrationsverketNotification-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		83B761F71FE42BDD00F21A7A /* Crashlytics */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1205,16 +1189,42 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
 		};
-		E3571EA012ECF1F3BF17F035 /* [CP] Copy Pods Resources */ = {
+		9DAA8C4552C14AE1B0A88202 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MigrationsverketNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AE24C4C9BC02818F6358DF90 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MigrationsverketNotification/Pods-MigrationsverketNotification-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates-Firestore.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Firestore.bundle",
 			);
@@ -1343,7 +1353,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4031C5D3468A6410BB4016B9 /* Pods-MigrationsverketNotification.debug.xcconfig */;
+			baseConfigurationReference = 897F8B88605FC4847913293F /* Pods-MigrationsverketNotification.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MigrationsverketNotification/MigrationsverketNotification.entitlements;
@@ -1370,7 +1380,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B7AFA8AA9A1CFD17320E9074 /* Pods-MigrationsverketNotification.release.xcconfig */;
+			baseConfigurationReference = BBDBFF07AB243B35BFAEBB00 /* Pods-MigrationsverketNotification.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MigrationsverketNotification/MigrationsverketNotification.entitlements;

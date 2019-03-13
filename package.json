@@ -11,8 +11,10 @@
     "replace-in-file": "^3.4.2"
   },
   "scripts": {
-    "android": "react-native run-android",
     "ios": "react-native run-ios --simulator=\"iPhone X\"",
+    "ios:generate:icons": "yo rn-toolbox:assets --icon assets/logo.png",
+    "ios:generate:splashscreen": "yo rn-toolbox:assets --splash assets/splash.psd --ios",
+    "android": "react-native run-android",
     "apk": "cd android && ./gradlew assembleRelease",
     "rename": "node ./bin/rename.js",
     "start": "react-native start",
@@ -24,7 +26,7 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.58.0-rc.2",
-    "react-native-device-info": "^0.29.0",
-    "react-native-firebase": "^5.2.0"
+    "react-native-firebase": "^5.2.0",
+    "tcomb-form-native": "^0.6.20"
   }
 }
