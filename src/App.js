@@ -94,15 +94,16 @@ export default class App extends React.Component {
   }
 
   componentWillUnmount() {
-    // this.onTokenRefreshListener();
-    // this.notificationListener();
-    // this.notificationOpenedListener();
+    this.onTokenRefreshListener();
+    this.notificationListener();
+    this.notificationOpenedListener();
     this.keyboardDidShowListener.remove();
     this.keyboardDidHideListener.remove();
   }
 
   async componentDidMount() {
     try {
+      // await localStorage.clear();
       // const { user } = await firebase.auth().signInAnonymously();
       // const userInfo = user.toJSON();
       // await firebase.analytics().logEvent("app_loaded", {
@@ -116,12 +117,11 @@ export default class App extends React.Component {
         () => this.setState({ isKeyboardOpened: false })
       );
       await this.requestNotificationPermission();
-      // await this.createNotificationListeners();
-      // await localStorage.clear();
-      // await this.loadApplicationInfo();
-      // this.onTokenRefreshListener = firebase
-      //   .messaging()
-      //   .onTokenRefresh(this.storeFcmToken);
+      await this.createNotificationListeners();
+      await this.loadApplicationInfo();
+      this.onTokenRefreshListener = firebase
+        .messaging()
+        .onTokenRefresh(this.storeFcmToken);
     } catch (error) {
       console.error(error);
     }
