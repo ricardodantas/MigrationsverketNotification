@@ -13,7 +13,7 @@
   "scripts": {
     "ios": "react-native run-ios --simulator=\"iPhone X\"",
     "ios:generate:icons": "yo rn-toolbox:assets --icon assets/logo.png",
-    "ios:generate:splashscreen": "yo rn-toolbox:assets --splash assets/splash.psd --ios",
+    "ios:generate:splashscreen": "yo rn-toolbox:assets --splash assets/splash.png --ios",
     "android": "react-native run-android",
     "apk": "cd android && ./gradlew assembleRelease",
     "rename": "node ./bin/rename.js",
