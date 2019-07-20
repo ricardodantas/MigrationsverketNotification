@@ -19,6 +19,7 @@
   },
   "scripts": {
     "ios": "react-native run-ios",
+    "ios:deploy:beta": "cd ios && fastlane beta && cd ..",
     "ios:generate:icons": "yo rn-toolbox:assets --icon assets/logo.png",
     "ios:generate:splashscreen": "yo rn-toolbox:assets --splash assets/splash.png --ios",
     "android": "react-native run-android",
