@@ -57,8 +57,6 @@ export default class ApplicationForm extends React.Component {
 
   componentWillUnmount() {
     this.onTokenRefreshListener();
-    // this.notificationListener();
-    // this.notificationOpenedListener();
   }
 
   async componentDidMount() {
