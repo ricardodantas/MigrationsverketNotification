@@ -2,6 +2,7 @@
   "name": "MigrationsverketNotification",
   "version": "5.1.0",
   "private": true,
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
