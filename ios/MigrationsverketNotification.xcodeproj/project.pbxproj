@@ -346,6 +346,7 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MigrationsverketNotification/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1E9D7689560B5C4D204C536E /* libPods-MigrationsverketNotification.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MigrationsverketNotification.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25AC1B34B938569C0EE088B0 /* libPods-MigrationsverketNotificationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MigrationsverketNotificationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* MigrationsverketNotification-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MigrationsverketNotification-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* MigrationsverketNotification-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MigrationsverketNotification-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58137AF92237A39200D49577 /* MigrationsverketNotification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MigrationsverketNotification.entitlements; path = MigrationsverketNotification/MigrationsverketNotification.entitlements; sourceTree = "<group>"; };
@@ -547,6 +548,7 @@
 			children = (
 				58FB5D2C223820C6004C43E6 /* libRNDeviceInfo.a */,
 				1E9D7689560B5C4D204C536E /* libPods-MigrationsverketNotification.a */,
+				25AC1B34B938569C0EE088B0 /* libPods-MigrationsverketNotificationTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -772,6 +774,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -1220,13 +1223,13 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MigrationsverketNotification/Pods-MigrationsverketNotification-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates-Firestore.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates-Cpp.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Firestore.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates-Cpp.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

@@ -1,21 +1,15 @@
-// import axios from "axios";
-
 import AppSettings from "../settings";
 
-const APPLICATION_STATUS_URL = `application-status`;
+const APPLICATION_STATUS_URL_PATH = 'application-status';
 
-export const getApplication = async ({ number, type, fcmToken }) => {
-  const response = await fetch(
+export const getApplication = ({ number, type, fcmToken }) => fetch(
     `${
-      AppSettings.restApiBaseUrl
-    }/${APPLICATION_STATUS_URL}?number=${number}&type=${type}&fcmToken=${fcmToken}`,
+      AppSettings.REST_API_BASE_URL
+    }/${APPLICATION_STATUS_URL_PATH}?number=${number}&type=${type}&fcmToken=${fcmToken}`,
     {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       }
     }
-  );
-  const data = await response.json();
-  return data;
-};
+  ).then(response => response.json());
