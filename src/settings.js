@@ -1,5 +1,7 @@
+import { REST_API_BASE_URL } from 'react-native-dotenv';
+
 const AppSettings = {
-  REST_API_BASE_URL: 'https://migrationsverketbot.herokuapp.com/api',
+  REST_API_BASE_URL,
   MAIN_COLOR: '#ce003c',
   MAIN_FONT_COLOR: '#fff',
   MAIN_COLOR_INVERTED: '#fff',
